@@ -1,0 +1,6 @@
+1. API call - time - arrival/departure - vehicle number- store
+Each Lot will have unique code,API call along with unq code,each lot has own hashmap
+
+2. Login/Signup
+3. PreBook- Lots,Floors,No
+4. Departure- Autogenerate Receipt and Text MSG to user
