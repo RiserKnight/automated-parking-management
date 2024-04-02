@@ -1,8 +1,6 @@
 
 const fs = require('fs');
-const path = require('path');
-const multer = require("multer");
-
+const {APIEntry}=require('../models')
 
 function imageToBase64(imagePath) {
     // Read the image file as a buffer
@@ -18,7 +16,7 @@ module.exports.home = (req, res) => {
 
     try {
 
-    res.send("Home");
+    res.render("home");
       
     } catch (error) {
       console.log(error);
@@ -42,13 +40,18 @@ module.exports.home = (req, res) => {
     const fileName="./uploads/"+req.files.postFile[0].filename;
    
     const base64String = imageToBase64(fileName);
-
+    const lotCode=req.body.lots;
     const result = await fetch('http://127.0.0.1:8000/node_call', { 
       method: 'POST', 
       body: JSON.stringify({"data":base64String}),
       headers: {'Content-Type': 'application/json'}
     });
     const data = await result.json();
+    const type='A';
+    //do something
+    const d = new Date();
+    const time = d.getTime();
+    await APIEntry.create({data,type,lotCode,time});
     console.log(data);
     res.send(data);
 

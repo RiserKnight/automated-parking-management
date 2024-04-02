@@ -16,7 +16,7 @@
 </head>
 
 <body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="54">
-    <%- include('partials/navbar',{userID:"12",status:false}) %>
+    <%- include('partials/navbar1',{userID:"12",status:false}) %>
     <form action="/check_Vno" id="post" method="post" enctype="multipart/form-data">
     <header class="masthead" style="background-image:url(/assetsHome/img/header-bg.jpg);">
         <div class="container">
@@ -54,7 +54,13 @@
             </div>
         </div>
     </header>
-
+    <label for="lots">Choose a Lot:</label>
+    <select id="lots" name="lots">
+        <option value="srgm">Srirangam Parking Lot</option>
+        <option value="skkn">SKK Nagar Parking Lot</option>
+        <option value="pjr">Panjapur Parking Lot</option>
+        <option value="thln">Thillai Nagar</option>
+    </select>
     <div class="container" style="margin:40px">
             <div class="form-group mb-3"><button class="btn btn-primary" type="submit">Post</button></div>
 

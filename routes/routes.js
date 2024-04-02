@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const imageRecog = require('../controllers/imageRecog');
+const authenticate = require('../controllers/authenticate');
 const fs = require('fs');
 const path = require('path');
 const multer = require("multer");
@@ -21,5 +22,8 @@ var storage = multer.diskStorage({
 router.get('/',imageRecog.home);
 router.get('/check_Vno', imageRecog.cameraAPI)
 router.post('/check_Vno',uploadFile, imageRecog.Vno);
+
+router.get('/register',authenticate.register);
+router.get('/login',authenticate.login);
 
 module.exports = router;
