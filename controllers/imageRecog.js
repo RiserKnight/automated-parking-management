@@ -15,7 +15,7 @@ function imageToBase64(imagePath) {
 module.exports.home = (req, res) => {
 
     try {
-
+      res.locals.user =req.user;
     res.render("home");
       
     } catch (error) {
@@ -26,7 +26,7 @@ module.exports.home = (req, res) => {
   module.exports.cameraAPI = (req, res) => {
 
     try {
-
+      res.locals.user =req.user;
     res.render("imageUp");
       
     } catch (error) {
@@ -37,6 +37,7 @@ module.exports.home = (req, res) => {
 
   module.exports.Vno=async(req, res) => {
   try {
+    res.locals.user =req.user;
     const fileName="./uploads/"+req.files.postFile[0].filename;
    
     const base64String = imageToBase64(fileName);

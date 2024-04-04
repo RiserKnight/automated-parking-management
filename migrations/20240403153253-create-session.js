@@ -2,28 +2,28 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, DataTypes) {
-    await queryInterface.createTable('lotEntries', {
-      lotEntryID: {
-        allowNull: false,
-        autoIncrement: true,
+    await queryInterface.createTable('sessions', {
+      sid: {
+        type: DataTypes.STRING,
         primaryKey: true,
-        type: DataTypes.INTEGER
       },
-      lotCode: {
-        type:DataTypes.STRING,
+      expires: {
+        type:DataTypes.DATE,
         allowNull:false,
         validate:{
-          notNull:{msg:'Entry must have a lot'},
-          notEmpty:{msg:'Lot must not be empty'}
+          notNull:{msg:'Session  must have a expirationDAte'},
+          notEmpty:{msg:'expirationDate must not be empty'}
         }
+  
       },
-      regNo: {
-        type:DataTypes.STRING,
+      data: {
+        type:DataTypes.TEXT,
         allowNull:false,
         validate:{
-          notNull:{msg:'Entry must have a regNo'},
-          notEmpty:{msg:'regNo must not be empty'}
+          notNull:{msg:'User  must have a Name'},
+          notEmpty:{msg:'Name must not be empty'}
         }
+  
       },
       createdAt: {
         allowNull: false,
@@ -36,6 +36,6 @@ module.exports = {
     });
   },
   async down(queryInterface, DataTypes) {
-    await queryInterface.dropTable('lotEntries');
+    await queryInterface.dropTable('sessions');
   }
 };

@@ -12,9 +12,22 @@
   <div class="container">
     <a href="#" class="logo">Automated Parking System</a>
     <ul class="nav-links">
+      <%if(user){%>
+        <li><a href="/">Welcome <%=user.name%></a></li>
+        <li></li>
+        <li></li>
+        
+      <%}%> 
       <li><a href="/">Home</a></li>
-      <li><a href="/register">Register</a></li>
-      <li><a href="/login">Login</a></li>
+      
+      <%if(user){%>
+        <li><a href="/parks">Parkings</a></li>
+        <li><a href="/logout">Logout</a></li>
+        <!-- Will give parking history and Due -->
+      <%}else{%>
+          <li><a href="/register">Register</a></li>
+          <li><a href="/login">Login</a></li>
+      <%}%>
     </ul>
   </div>
 </nav>

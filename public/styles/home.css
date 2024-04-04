@@ -63,12 +63,12 @@ h1 {
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 input[type="text"],
@@ -92,4 +92,8 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background-color: #555;
+}
+.signupError{
+  color: red;
+  font-size: x-small;
 }

@@ -4,6 +4,7 @@ const authenticate = require('../controllers/authenticate');
 const fs = require('fs');
 const path = require('path');
 const multer = require("multer");
+const passport = require('passport');
 
 const router = Router();
 var storage = multer.diskStorage({
@@ -23,7 +24,12 @@ router.get('/',imageRecog.home);
 router.get('/check_Vno', imageRecog.cameraAPI)
 router.post('/check_Vno',uploadFile, imageRecog.Vno);
 
-router.get('/register',authenticate.register);
+router.get('/register',authenticate.registerPage);
+router.post('/register',authenticate.register);
 router.get('/login',authenticate.login);
+
+router.post('/login',passport.authenticate('local', { failureRedirect: '/login-failure', successRedirect: '/' }));
+router.get('/login-failure',authenticate.loginFail);
+router.get('/logout', authenticate.logout);
 
 module.exports = router;

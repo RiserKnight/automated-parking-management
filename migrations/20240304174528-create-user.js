@@ -53,6 +53,14 @@ module.exports = {
           notEmpty:{msg:'Due must not be empty'}
         }
       },
+      pass: {
+        type:DataTypes.TEXT,
+        allowNull:false,
+        validate:{
+          notNull:{msg:'User must have a Password'},
+          notEmpty:{msg:'Password must not be empty'}
+        }
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE
