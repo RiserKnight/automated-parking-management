@@ -56,7 +56,7 @@ sequelize
    
      const userJhon= await user.findOne({where:{email:"john@example.com"}});
      if(!userJhon){
-      await user.bulkCreate([
+      const usersData=[
         { name: 'John Doe', regNo: "21BH0001AA",contact:9131432828, email: 'john@example.com',pass:"1234" },
         { name: 'Varun', regNo: "MH20CS1941",contact:9131432828, email: 'varun@example.com',pass:"1234" },
         { name: 'Ajay Ghale', regNo: "P688CC",contact:9131432828, email: 'ajay@example.com',pass:"1234" },
@@ -65,7 +65,8 @@ sequelize
         { name: 'Tony Stark', regNo: "RJ27TC0530",contact:9131432828, email: 'tony@example.com',pass:"1234" },
         { name: 'Aayush', regNo: "MH20CS9817",contact:9131432828, email: 'aayush@example.com',pass:"1234" },
         { name: 'Mohan', regNo: "MH20BY3665",contact:9131432828, email: 'mohan@example.com',pass:"1234" },
-      ]);
+      ];
+      const createdUsers = await Promise.all(usersData.map(userData => user.create(userData)));
      } 
 
     });

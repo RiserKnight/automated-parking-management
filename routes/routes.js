@@ -21,8 +21,11 @@ var storage = multer.diskStorage({
   var uploadFile = upload.fields([{ name: 'postFile', maxCount: 1 }])
 
 router.get('/',imageRecog.home);
-router.get('/check_Vno', imageRecog.cameraAPI)
-router.post('/check_Vno',uploadFile, imageRecog.Vno);
+router.get('/apiEntry', imageRecog.cameraAPI)
+router.post('/apiEntry',uploadFile, imageRecog.Vno);
+
+router.get('/apiEntryText', imageRecog.textAPI)
+router.post('/apiEntryText',uploadFile, imageRecog.VnoT);
 
 router.get('/register',authenticate.registerPage);
 router.post('/register',authenticate.register);

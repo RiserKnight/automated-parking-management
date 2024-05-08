@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>API Entry Text</title>
+    <link rel="stylesheet" href="/assetsHome/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+    <%- include('partials/navbar1') %>
+    <div style="margin-top: 5%;margin-left: 2%;">
+        <form action="/apiEntryText" id="post" method="post" enctype="multipart/form-data">
+            <label for="Number">Vehicle Number:</label>
+            <input type="text" id="Number" name="Number">
+            <label for="lots">Choose a Lot:</label>
+            <select id="lots" name="lots">
+                <option value="srgm">Srirangam Parking Lot</option>
+                <option value="skkn">SKK Nagar Parking Lot</option>
+                <option value="pjr">Panjapur Parking Lot</option>
+                <option value="thln">Thillai Nagar</option>
+            </select>
+            <label for="entryType">Camera:</label>
+            <select id="entryType" name="entryType">
+                <option value="entry">Entry Camera</option>
+                <option value="exit">Exit Camera</option>
+            </select>
+            <div class="container" style="margin:40px">
+                    <div class="form-group mb-3"><button class="btn btn-primary" type="submit">Text Entry</button></div>
+            </div>
+        
+        </form>
+    </div>
+
+
+</body>
+
+</html>
