@@ -1,0 +1,12 @@
+<%- include('partials/navbar') %>
+<form action="/book" method="post">
+<label for="lots">Choose a Lot:</label>
+<select id="lots" name="lots">
+    <option value="srgm">Srirangam Parking Lot</option>
+    <option value="skkn">SKK Nagar Parking Lot</option>
+    <option value="pjr">Panjapur Parking Lot</option>
+    <option value="thln">Thillai Nagar</option>
+</select>
+<button type="submit">Check Availability</button>
+</form>
+<%- include('partials/footer') %>

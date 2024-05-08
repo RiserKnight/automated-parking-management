@@ -1,7 +1,7 @@
 const express = require('express');
 const  bodyParser = require('body-parser');
 const routes = require('./routes/routes');
-const {sequelize,user}=require('./models');
+const {sequelize,user,srgmLot,skknLot,pjrLot,thlnLot}=require('./models');
 const passport = require('passport')
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -67,6 +67,20 @@ sequelize
         { name: 'Mohan', regNo: "MH20BY3665",contact:9131432828, email: 'mohan@example.com',pass:"1234" },
       ];
       const createdUsers = await Promise.all(usersData.map(userData => user.create(userData)));
-     } 
+     }
+     const lot= await srgmLot.findOne({where:{slotID:1}});
+     if(!lot)
+     {
+      for (let index = 0; index < 40; index++) {
+        if(index/10<1)floor="Ground";
+        else if(index/20<1) floor="First";
+        else if(index/30<1) floor="Second";
+        else if(index/40<1) floor="Third";
+        await srgmLot.create({floor,occupy:false,regNo:""});
+        await skknLot.create({floor,occupy:false,regNo:""});
+        await pjrLot.create({floor,occupy:false,regNo:""});
+        await thlnLot.create({floor,occupy:false,regNo:""});
+      }
+     }
 
     });

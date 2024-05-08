@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const imageRecog = require('../controllers/imageRecog');
 const authenticate = require('../controllers/authenticate');
+const booking = require('../controllers/booking');
 const fs = require('fs');
 const path = require('path');
 const multer = require("multer");
@@ -26,6 +27,9 @@ router.post('/apiEntry',uploadFile, imageRecog.Vno);
 
 router.get('/apiEntryText', imageRecog.textAPI)
 router.post('/apiEntryText',uploadFile, imageRecog.VnoT);
+
+router.get('/book', booking.page)
+router.post('/book', booking.book);
 
 router.get('/register',authenticate.registerPage);
 router.post('/register',authenticate.register);
