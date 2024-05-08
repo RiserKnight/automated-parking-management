@@ -70,7 +70,8 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty:{msg:'Password must not be empty'}
       }
     }
-  }, {
+  }, 
+  {
     hooks: {
       beforeCreate: async(user, options) => {
 
@@ -79,8 +80,19 @@ module.exports = (sequelize, DataTypes) => {
      
       }
     },
+    //freezeTableName: true,
+    indexes: [
+      {
+        name: "regNo_trigram",
+        concurrently: true,
+        using: "GIN",
+        fields: [sequelize.literal("regNo gin_trgm_ops")],
+      },
+    ],
     sequelize,
     modelName: 'user',
-  });
+  }
+
+);
   return user;
 };

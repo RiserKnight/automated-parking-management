@@ -1,4 +1,6 @@
 const {user} = require('../models')
+const filterFunct = require("./functions/filter.js");
+
 module.exports.registerPage = (req, res) => {
 
     try {
@@ -28,8 +30,10 @@ module.exports.registerPage = (req, res) => {
     try {
       
       console.log(req.body);
+      req.body.regNo=filterFunct.filter(req.body.regNo);
       const userD=await user.findOne({where:{email:req.body.email}});
-      if(!userD)
+      const userVNO=await user.findOne({where:{regNo:req.body.regNo}});
+      if(!userD && !userVNO)
       {
         await user.create(req.body);
         code="201";
