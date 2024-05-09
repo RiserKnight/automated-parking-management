@@ -1,4 +1,4 @@
-const {srgmLot,ParkingHistory,skknLot,pjrLot,thlnLot,user}=require('../models')
+const {srgmLot,ParkingHistory,skknLot,pjrLot,thlnLot,user,APIEntry}=require('../models')
 module.exports.parks = async(req, res) => {
 
   try {
@@ -36,7 +36,7 @@ module.exports.page = (req, res) => {
       console.log(error);
     }
   }
-  module.exports.bookslot = (req, res) => {
+  module.exports.bookslot = async(req, res) => {
 
     try {
     res.locals.user =req.user;
@@ -49,7 +49,24 @@ module.exports.page = (req, res) => {
     slotID=slotID+parseInt(req.body.slot);
     req.body["slot"]=slotID;
 
-    res.send(req.body);
+    const d = new Date();
+    const time=d.getTime();
+    const userC= await user.findOne({where:{userID:req.user.userID}});
+    const data={
+      "userID":req.user.userID,
+      "regNo":userC.dataValues.regNo,
+      "type":"entry",
+      "lotCode":req.body.lotCode,
+      "time":time
+    }
+    await APIEntry.create(data);
+    
+    if(lotCode=="srgm")bookings = await srgmLot.update({regNo:userC.dataValues.regNo,occupy:true},{where:{slotID}});
+    else if(lotCode=="skkn")bookings = await skknLot.update({regNo:userC.dataValues.regNo,occupy:true},{where:{slotID}});
+    else if(lotCode=="pjr")bookings = await pjrLot.update({regNo:userC.dataValues.regNo,occupy:true},{where:{slotID}});
+    else if(lotCode=="thln")bookings = await thlnLot.update({regNo:userC.dataValues.regNo,occupy:true},{where:{slotID}});
+
+    res.redirect("/book");
       
     } catch (error) {
       console.log(error);

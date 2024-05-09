@@ -2,7 +2,7 @@
 const filterFunct = require("./filter.js");
 const regNoFunct = require("./regNoSearch.js");
 const dueFunct = require("./dueCalculator.js");
-const {APIEntry,user,ParkingHistory,srgmLot}=require('../../models')
+const {APIEntry,user,ParkingHistory,srgmLot,skknLot,pjrLot,thlnLot}=require('../../models')
 
 exports.apiEntry=async(Number,req)=>{
     let due=0;
@@ -17,13 +17,26 @@ exports.apiEntry=async(Number,req)=>{
     console.log(userC);
     if(type=="entry")
     {
-      lotEntry= await srgmLot.findOne({where:{occupy:false}});
+      const entry = await APIEntry.findOne({where:{userID,regNo}});
+      if(!entry)
+      {
+      if(lotCode=="srgm")lotEntry=  await srgmLot.findOne({where:{occupy:false}});
+      else if(lotCode=="skkn")lotEntry=  await skknLot.findOne({where:{occupy:false}});
+      else if(lotCode=="pjr")lotEntry=  await pjrLot.findOne({where:{occupy:false}});
+      else if(lotCode=="thln")lotEntry=  await thlnLot.findOne({where:{occupy:false}});
+
       const slotID=lotEntry.dataValues.slotID;
-      srgmLot.update({regNo,occupy:true},{where:{slotID}});
+
+      if(lotCode=="srgm")lotEntry=  await srgmLot.update({regNo,occupy:true},{where:{slotID}});
+      else if(lotCode=="skkn")lotEntry=  await skknLot.update({regNo,occupy:true},{where:{slotID}});
+      else if(lotCode=="pjr")lotEntry=  await pjrLot.update({regNo,occupy:true},{where:{slotID}});
+      else if(lotCode=="thln")lotEntry=  await thlnLot.update({regNo,occupy:true},{where:{slotID}});
+
       console.log(slotID);
 
       const entry=await APIEntry.create({userID,regNo,type,lotCode,time});
       console.log(entry.dataValues);
+      }
     }
     else if (type=="exit")
     {
@@ -38,9 +51,19 @@ exports.apiEntry=async(Number,req)=>{
       await APIEntry.destroy({where:{entryID}});
       userC['due']=dueN;
 
-      lotEntry= await srgmLot.findOne({where:{regNo,occupy:true}});
+      if(lotCode=="srgm")lotEntry= await srgmLot.findOne({where:{regNo,occupy:true}});
+      else if(lotCode=="skkn")lotEntry= await skknLot.findOne({where:{regNo,occupy:true}});
+      else if(lotCode=="pjr")lotEntry= await pjrLot.findOne({where:{regNo,occupy:true}});
+      else if(lotCode=="thln")lotEntry= await thlnLot.findOne({where:{regNo,occupy:true}});
+
       const slotID=lotEntry.dataValues.slotID;
-      srgmLot.update({regNo:"",occupy:false},{where:{slotID}});
+
+      if(lotCode=="srgm")  await srgmLot.update({regNo:"",occupy:false},{where:{slotID}});
+      else if(lotCode=="skkn") await skknLot.update({regNo:"",occupy:false},{where:{slotID}});
+      else if(lotCode=="pjr") await pjrLot.update({regNo:"",occupy:false},{where:{slotID}});
+      else if(lotCode=="thln") await thlnLot.update({regNo:"",occupy:false},{where:{slotID}});
+
+ 
 
       let lotName="";
       if(lotCode=="srgm")lotName="Srirangam Parking Lot";
