@@ -22,6 +22,9 @@ var storage = multer.diskStorage({
   var uploadFile = upload.fields([{ name: 'postFile', maxCount: 1 }])
 
 router.get('/',imageRecog.home);
+
+router.get('/parks', booking.parks);
+
 router.get('/apiEntry', imageRecog.cameraAPI)
 router.post('/apiEntry',uploadFile, imageRecog.Vno);
 
@@ -30,6 +33,7 @@ router.post('/apiEntryText',uploadFile, imageRecog.VnoT);
 
 router.get('/book', booking.page)
 router.post('/book', booking.book);
+router.post('/bookslot', booking.bookslot);
 
 router.get('/register',authenticate.registerPage);
 router.post('/register',authenticate.register);

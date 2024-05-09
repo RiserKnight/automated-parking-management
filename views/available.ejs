@@ -1,0 +1,75 @@
+<%- include('partials/navbar') %>
+<div class="table-responsive">
+    <%if(users){%>
+    <% const floors = ["Ground", "First", "Second", "Third"]; %>
+    <table class="table table-bordered table-hover">
+        <thead id="stockNameRow">
+            <tr>
+                <th>
+                    Floor/Slot
+                </th>
+                <%for(let i = 1; i <=10; i++){%>
+                <th style="color: rgb(95, 98, 95);">
+                    <h4><%=i%></h4>
+                </th>
+                <%}%>
+            </tr>
+        </thead>
+
+        <tbody>
+        <%for(let i = 0; i < 4; i++){%>
+            <tr>
+                <td style="background-color: rgb(192, 192, 192); font-weight: bold;">
+                    <h5><%=floors[i]%></h5>
+                </td>
+                <%for(let j = 1; j <= 10; j++){%>
+                    <%if(users[floors[i]].includes(i*10+j)){%>
+                        <td style="background-color: green;">
+
+                        </td>
+                        <%} else {%>
+                            <td style="background-color: red;"></td>
+                        <%}%>
+                <%}%>
+            </tr>
+            <%}%>
+        </tbody>
+    </table>
+    <%}else{%>
+        <h1>Empty</h1>
+    <%}%>
+    <form action="/bookslot" method="post">
+        <label for="floor">Floor</label>
+        <select id="floor" name="floor">
+            <option value="Ground">Ground</option>
+            <option value="First">First</option>
+            <option value="Second">Second</option>
+            <option value="Third">Third</option>
+        </select>
+        <label for="slotr">Slot</label>
+        <select id="slot" name="slot">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <input style="display: none;" type="text" name="lotCode" id="" value="<%=lotCode%>">
+        <button type="submit">Book</button>
+    </form>
+</div>
+<style>
+    .table {
+        width: 100%;
+        text-align: center;
+    }
+    .table th {
+        background-color: rgb(192, 192, 192);
+    }
+</style>
+<%- include('partials/footer') %>

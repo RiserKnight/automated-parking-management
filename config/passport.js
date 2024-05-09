@@ -45,9 +45,9 @@ passport.deserializeUser((email, done) => {
 
     user.findOne({where:{email}})
         .then((user) => {
-            const {email,name} = user;
+            const {email,name,userID} = user;
 
-            done(null, {email,name});
+            done(null, {email,name,userID});
         })
         .catch(err => done(err))
 });
